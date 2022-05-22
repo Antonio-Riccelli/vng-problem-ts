@@ -86,16 +86,19 @@ class Piece {
         movementsArray.forEach(movement => {
             movement = movement.toUpperCase();
             if (movement === "M") {
-                if (this.direction == Direction.N && this.isValidMovement()) {
+                if (!this.isValidMovement()) {
+                    return;
+                }
+                if (this.direction == Direction.N) {
                     this.coordY = this.coordY + 1;
                 }
-                if (this.direction == Direction.E && this.isValidMovement()) {
+                if (this.direction == Direction.E) {
                     this.coordX = this.coordX + 1;
                 }
-                if (this.direction == Direction.S && this.isValidMovement()) {
+                if (this.direction == Direction.S) {
                     this.coordY = this.coordY - 1;
                 }
-                if (this.direction == Direction.W && this.isValidMovement()) {
+                if (this.direction == Direction.W) {
                     this.coordX = this.coordX - 1;
                 }
             }
@@ -104,11 +107,8 @@ class Piece {
                 this.changeDirection(movement);
             }
         });
-        return "${}";
+        return "${this.coordX} ${this.coordY} ${this.direction}";
     }
 }
 const board = new Board();
 const piece = new Piece();
-// piece.processMovement(MRMLMRM");
-console.log(piece);
-piece.processMovement("hghfjd");
