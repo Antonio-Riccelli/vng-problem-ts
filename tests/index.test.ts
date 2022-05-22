@@ -9,7 +9,6 @@ describe("Movement", function() {
 
         // EXERCISE
         const actual = piece.processMovement(input);
-        // console.log("actual", actual);
         // VERIFY
         expect(actual).toBe(expected);
 

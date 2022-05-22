@@ -55,22 +55,18 @@ export enum Direction {
         if (value === "R") {
             if (this.direction === "N") {
                 this.direction = Direction.E;
-                console.log("new direction", this.direction);
                 return
             }
             if (this.direction === "E") {
                 this.direction = Direction.S;
-                console.log("new direction", this.direction);
                 return
             }
             if (this.direction === "S") {
                 this.direction = Direction.W;
-                console.log("new direction", this.direction);
                 return
             }
             if (this.direction === "W") {
                 this.direction = Direction.N;
-                console.log("new direction", this.direction);
                 return
             }
         }
@@ -78,22 +74,18 @@ export enum Direction {
         if (value === "L") {
             if (this.direction === "N") {
                 this.direction = Direction.W;
-                console.log("new direction", this.direction);
                 return
             }
             if (this.direction === "W") {
                 this.direction = Direction.S;
-                console.log("new direction", this.direction);
                 return
             }
             if (this.direction === "S") {
                 this.direction = Direction.E;
-                console.log("new direction", this.direction);
                 return
             }
             if (this.direction === "E") {
                 this.direction = Direction.N;
-                console.log("new direction", this.direction);
                 return
             }
         }
@@ -101,11 +93,8 @@ export enum Direction {
 
     processMovement(value : string) : string {
         const movementsArray : string[] = value.split("");
-        console.log(movementsArray);
         movementsArray.forEach(movement => {
-          
             movement = movement.toUpperCase();
-            console.log("Movement:", movement);
             if (movement === "M") {
         
                 if (this.direction == Direction.N) {
@@ -113,7 +102,6 @@ export enum Direction {
                         return
                     }
                     this.coordY = this.coordY + 1;
-                    console.log("Y updated")
                 }
                 
                 if (this.direction == Direction.E) {
@@ -121,7 +109,6 @@ export enum Direction {
                         return
                     }
                     this.coordX = this.coordX + 1;
-                    console.log("X updated")
                 }
 
                 if (this.direction == Direction.S) {
@@ -129,7 +116,6 @@ export enum Direction {
                         return
                     }
                     this.coordY = this.coordY - 1;
-                    console.log("Y updated")
                 }
 
                 if (this.direction == Direction.W) {
@@ -137,7 +123,6 @@ export enum Direction {
                         return
                     }
                     this.coordX = this.coordX - 1;
-                    console.log("X updated")
                 }
             };
 
@@ -147,8 +132,6 @@ export enum Direction {
             }
           
         })
-        console.log("End of function");
-        console.log(`${this.coordX} ${this.coordY} ${this.direction}`);
         return `${this.coordX} ${this.coordY} ${this.direction}`;
     }
    

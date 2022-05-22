@@ -9,7 +9,6 @@ describe("Movement", function () {
         const expected = "2 2 E";
         // EXERCISE
         const actual = index_1.piece.processMovement(input);
-        // console.log("actual", actual);
         // VERIFY
         expect(actual).toBe(expected);
         // TEARDOWN
