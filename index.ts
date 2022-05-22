@@ -16,14 +16,14 @@ class Board {
       }
 }
 
-enum Direction {
+export enum Direction {
     N = "N",
     S = "S",
     E = "E",
     W = "W"
 };
 
-class Piece {
+ class Piece {
     coordX : number;
     coordY : number;
     direction : Direction;
@@ -34,9 +34,9 @@ class Piece {
         this.direction = Direction.N;
     }
 
-    get coordinates() : [number, number, string] {
+    get getCoordinates() : string {
         console.log(this.coordX, this.coordY, this.direction);
-        return [this.coordX, this.coordY, this.direction];
+        return `${this.coordX} ${this.coordY} ${this.direction}`;
     }
 
     set setCoordX(value : number) {
@@ -51,44 +51,50 @@ class Piece {
         this.direction = value;
     }
 
-    isValidMovement() : boolean {
-        if (this.coordX + 1 > 4 || 
-            this.coordY + 1 > 4 || 
-            this.coordX - 1 < 0 ||
-            this.coordY - 1 < 0) {
-            return false;
-        }
-        return true;
-    }
-
     changeDirection(value : string) {
         if (value === "R") {
             if (this.direction === "N") {
                 this.direction = Direction.E;
+                console.log("new direction", this.direction);
+                return
             }
             if (this.direction === "E") {
                 this.direction = Direction.S;
+                console.log("new direction", this.direction);
+                return
             }
             if (this.direction === "S") {
                 this.direction = Direction.W;
+                console.log("new direction", this.direction);
+                return
             }
             if (this.direction === "W") {
                 this.direction = Direction.N;
+                console.log("new direction", this.direction);
+                return
             }
         }
 
         if (value === "L") {
             if (this.direction === "N") {
                 this.direction = Direction.W;
+                console.log("new direction", this.direction);
+                return
             }
             if (this.direction === "W") {
                 this.direction = Direction.S;
+                console.log("new direction", this.direction);
+                return
             }
             if (this.direction === "S") {
                 this.direction = Direction.E;
+                console.log("new direction", this.direction);
+                return
             }
             if (this.direction === "E") {
                 this.direction = Direction.N;
+                console.log("new direction", this.direction);
+                return
             }
         }
     }
@@ -97,38 +103,57 @@ class Piece {
         const movementsArray : string[] = value.split("");
         console.log(movementsArray);
         movementsArray.forEach(movement => {
+          
             movement = movement.toUpperCase();
+            console.log("Movement:", movement);
             if (movement === "M") {
-                if (!this.isValidMovement()) {
-                    return;
-                }
+        
                 if (this.direction == Direction.N) {
+                    if (this.coordY + 1 > 4) {
+                        return
+                    }
                     this.coordY = this.coordY + 1;
+                    console.log("Y updated")
                 }
                 
                 if (this.direction == Direction.E) {
+                    if (this.coordX + 1 > 4) {
+                        return
+                    }
                     this.coordX = this.coordX + 1;
+                    console.log("X updated")
                 }
 
                 if (this.direction == Direction.S) {
+                    if (this.coordY - 1 < 0) {
+                        return
+                    }
                     this.coordY = this.coordY - 1;
+                    console.log("Y updated")
                 }
 
                 if (this.direction == Direction.W) {
+                    if (this.coordX - 1 , 0) {
+                        return
+                    }
                     this.coordX = this.coordX - 1;
+                    console.log("X updated")
                 }
             };
 
             if (movement === "L" || movement === "R") {
                 this.changeDirection(movement);
+                
             }
+          
         })
-
-        return "${this.coordX} ${this.coordY} ${this.direction}";
+        console.log("End of function");
+        console.log(`${this.coordX} ${this.coordY} ${this.direction}`);
+        return `${this.coordX} ${this.coordY} ${this.direction}`;
     }
    
 }
 
 const board  = new Board();
-const piece  = new Piece();
+export const piece  = new Piece();
 
