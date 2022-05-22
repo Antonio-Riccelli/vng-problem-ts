@@ -16,15 +16,22 @@ class Board {
       }
 }
 
+enum Direction {
+    N = "N",
+    S = "S",
+    E = "E",
+    W = "W"
+};
+
 class Piece {
     coordX : number;
     coordY : number;
-    direction : string;
+    direction : Direction;
 
     constructor() {
         this.coordX = 0;
         this.coordY = 0;
-        this.direction = "North";
+        this.direction = Direction.N;
     }
 
     get coordinates() : [number, number, string] {
@@ -40,13 +47,79 @@ class Piece {
         this.coordY = value;
     }
 
-    set setDirection(value : string) {
+    set setDirection(value : Direction) {
         this.direction = value;
+    }
+
+    isValidMovement() : boolean {
+        if (this.coordX + 1 > 4 || 
+            this.coordY + 1 > 4 || 
+            this.coordX - 1 < 0 ||
+            this.coordY - 1 < 0) {
+            return false;
+        }
+        return true;
+    }
+
+    changeDirection(value : string) {
+        if (value === "R") {
+            if (this.direction === "N") {
+                this.direction = Direction.E;
+            }
+            if (this.direction === "E") {
+                this.direction = Direction.S;
+            }
+            if (this.direction === "S") {
+                this.direction = Direction.W;
+            }
+            if (this.direction === "W") {
+                this.direction = Direction.N;
+            }
+        }
+
+        if (value === "L") {
+            if (this.direction === "N") {
+                this.direction = Direction.W;
+            }
+            if (this.direction === "W") {
+                this.direction = Direction.S;
+            }
+            if (this.direction === "S") {
+                this.direction = Direction.E;
+            }
+            if (this.direction === "E") {
+                this.direction = Direction.N;
+            }
+        }
     }
 
     processMovement(value : string) : string {
         const movementsArray : string[] = value.split("");
         console.log(movementsArray);
+        movementsArray.forEach(movement => {
+            movement = movement.toUpperCase();
+            if (movement === "M") {
+                if (this.direction == Direction.N && this.isValidMovement()) {
+                    this.coordY = this.coordY + 1;
+                }
+                
+                if (this.direction == Direction.E && this.isValidMovement()) {
+                    this.coordX = this.coordX + 1;
+                }
+
+                if (this.direction == Direction.S && this.isValidMovement()) {
+                    this.coordY = this.coordY - 1;
+                }
+
+                if (this.direction == Direction.W && this.isValidMovement()) {
+                    this.coordX = this.coordX - 1;
+                }
+            };
+
+            if (movement === "L" || movement === "R") {
+                this.changeDirection(movement);
+            }
+        })
 
         return "${}"
     }
@@ -54,7 +127,4 @@ class Piece {
 
 const board  = new Board();
 const piece  = new Piece();
-// piece.processMovement(MRMLMRM");
 
-console.log(piece);
-piece.processMovement("hghfjd");
